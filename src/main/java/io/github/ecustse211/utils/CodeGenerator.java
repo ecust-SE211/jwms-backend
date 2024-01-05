@@ -20,7 +20,6 @@ public class CodeGenerator {
         FastAutoGenerator.create("jdbc:mysql://localhost:3306/jwms?serverTimezone=GMT%2b8", "root", "root")
                 .globalConfig(builder -> {
                     builder.author("wwj") // 设置作者
-                            .fileOverride() // 覆盖已生成文件
                             .outputDir("D:\\DeskTop\\FaceReconigitionBackend\\jwms-backend\\src\\main\\java\\"); // 指定输出目录
                 })
                 .dataSourceConfig(builder -> builder.typeConvertHandler((globalConfig, typeRegistry, metaInfo) -> {

@@ -63,7 +63,7 @@
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-generator</artifactId>
-			<version>3.5.3.1</version> <!-- 添加版本信息 -->
+			<version>3.5.5</version> <!-- 添加版本信息 -->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
