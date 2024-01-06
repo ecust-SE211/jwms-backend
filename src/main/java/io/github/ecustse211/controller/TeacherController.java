@@ -1,6 +1,7 @@
 package io.github.ecustse211.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.github.ecust_se211.recognition.recognition_camera.FaceRecognize;
 import io.github.ecustse211.common.Result;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
@@ -13,8 +14,7 @@ import io.github.ecustse211.entity.Teacher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * <p>
+/* <p>
  *  前端控制器
  * </p>
  *
@@ -43,7 +43,7 @@ public class TeacherController {
     //批量删除
     @PostMapping("/del/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids){
-            return Result.success(teacherService.removeByIds(ids));
+        return Result.success(teacherService.removeByIds(ids));
     }
 
     @GetMapping("/{id}")
