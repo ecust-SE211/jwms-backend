@@ -1,0 +1,74 @@
+package io.github.ecustse211.controller;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.github.ecustse211.common.Constants;
+import io.github.ecustse211.common.Result;
+import io.github.ecustse211.entity.Teacher;
+import org.springframework.web.bind.annotation.*;
+import jakarta.annotation.Resource;
+import java.util.List;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
+import io.github.ecustse211.service.IStudentService;
+import io.github.ecustse211.entity.Student;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * <p>
+ *  前端控制器
+ * </p>
+ *
+ * @author wwj
+ * @since 2024-01-09
+ */
+@RestController
+@RequestMapping("/student")
+public class StudentController {
+
+    @Resource
+    private IStudentService studentService;
+
+    //新增或者更新
+    @PostMapping
+    public Result save(@RequestBody Student student) {
+            return Result.success(studentService.saveOrUpdate(student));
+    }
+
+    //删除
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Integer id) {
+            return Result.success(studentService.removeById(id));
+    }
+
+    //批量删除
+    @PostMapping("/del/batch")
+    public Result deleteBatch(@RequestBody List<Integer> ids){
+            return Result.success(studentService.removeByIds(ids));
+    }
+
+    @GetMapping("/{id}")
+    public Result findOne(@PathVariable Integer id) {
+        return Result.success(studentService.getById(id));
+    }
+
+    @GetMapping("/page")
+    public Result findPage(@RequestParam Integer pageNum,
+                                    @RequestParam Integer pageSize) {
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("id");
+        return Result.success(studentService.page(new Page<>(pageNum, pageSize),queryWrapper));
+    }
+
+    @PostMapping("/login")
+    public Result login(@RequestBody Student student){
+        String id = student.getId().toString();
+        String password = student.getPassword();
+        if(id.isEmpty() || password == null || password.isEmpty()){
+            return Result.error(Constants.CODE_400,"参数错误");
+        }
+        Student stu = studentService.login(student);
+        return Result.success(stu);
+    }
+}
