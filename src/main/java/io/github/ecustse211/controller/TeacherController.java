@@ -2,6 +2,7 @@ package io.github.ecustse211.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.ecust_se211.recognition.recognition_camera.FaceRecognize;
+import io.github.ecustse211.common.Constants;
 import io.github.ecustse211.common.Result;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
@@ -59,4 +60,14 @@ public class TeacherController {
         return Result.success(teacherService.page(new Page<>(pageNum, pageSize),queryWrapper));
     }
 
+    @PostMapping("/login")
+    public Result login(@RequestBody Teacher teacher){
+        String id = teacher.getId().toString();
+        String password = teacher.getPassword();
+        if(id.isEmpty() || password == null || password.isEmpty()){
+            return Result.error(Constants.CODE_400,"参数错误");
+        }
+        Teacher teach = teacherService.login(teacher);
+        return Result.success(teach);
+    }
 }
