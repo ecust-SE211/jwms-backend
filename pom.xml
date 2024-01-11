@@ -83,6 +83,14 @@
 			<systemPath>${project.basedir}\src\main\resources\libs\FaceRecognize1.0.jar</systemPath>
 		</dependency>
 
+		<dependency>
+			<groupId>org</groupId>
+			<artifactId>opencv</artifactId>
+			<scope>system</scope>
+			<version>4.7.0</version>
+			<systemPath>${project.basedir}\src\main\resources\libs\opencv-470.jar</systemPath>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

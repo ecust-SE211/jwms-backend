@@ -3,9 +3,12 @@ package io.github.ecustse211.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.ecustse211.common.Constants;
 import io.github.ecustse211.common.Result;
-import io.github.ecustse211.entity.Teacher;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
@@ -14,6 +17,9 @@ import io.github.ecustse211.entity.Student;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import io.github.ecust_se211.recognition.recognition_camera.FaceRecognize;
+import io.github.ecustse211.utils.ImageUtil;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
@@ -60,7 +66,19 @@ public class StudentController {
         queryWrapper.orderByDesc("id");
         return Result.success(studentService.page(new Page<>(pageNum, pageSize),queryWrapper));
     }
+    @PostMapping("/compare")
+    public Result compare(@RequestParam Integer studentId, @RequestParam MultipartFile file) throws IOException {
+        if(studentId == null || file== null){
+            return Result.error(Constants.CODE_400,"参数错误");
+        }//TODO: 图片路径需要修改
+        String sesimg = "src/main/resources/tempImage/"+studentId+".png";
+        String refImg = "src/main/resources/referenceImage/"+studentId+ ".png";
+        file.transferTo(new File(sesimg));
 
+        //ImageUtil.convertBase64ToImage(base64String, sesimg);
+        boolean result=FaceRecognize.ComparePicture(FaceRecognize.GetImage(refImg),FaceRecognize.GetImage(sesimg));
+        return Result.success(result);
+    }
     @PostMapping("/login")
     public Result login(@RequestBody Student student){
         String id = student.getId().toString();

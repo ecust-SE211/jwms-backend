@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/jwms?serverTimezone=GMT%2b8
     username: root
-    password: root
+    password: 200342
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml #扫描所有mybatis的xml文件
