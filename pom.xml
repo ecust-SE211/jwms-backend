@@ -77,10 +77,10 @@
 
 		<dependency>
 			<groupId>com.ecustSE211</groupId>
-			<artifactId>FaceRecognize1.0</artifactId>
+			<artifactId>FaceRecognize1.2</artifactId>
 			<scope>system</scope>
-			<version>1.0</version>
-			<systemPath>${project.basedir}\src\main\resources\libs\FaceRecognize1.0.jar</systemPath>
+			<version>1.2</version>
+			<systemPath>${project.basedir}\src\main\resources\libs\FaceRecognizer1.2.jar</systemPath>
 		</dependency>
 
 		<dependency>

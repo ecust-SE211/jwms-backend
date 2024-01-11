@@ -19,7 +19,7 @@ import io.github.ecustse211.entity.Student;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import io.github.ecust_se211.recognition.recognition_camera.FaceRecognize;
-import io.github.ecustse211.utils.ImageUtil;
+import org.opencv.core.Mat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -75,10 +75,12 @@ public class StudentController {
         if(studentId == null || file== null){
             return Result.error(Constants.CODE_400,"参数错误");
         }
-        String sesimg = fileUploadPath+"tempImage/"+studentId+".png";
-        String refImg = fileUploadPath+"referenceImage/"+studentId+ ".png";
+        String sesimg = fileUploadPath+"src/main/resources/tempImage/"+studentId.toString()+".png";
+        String refImg = fileUploadPath+"src/main/resources/referenceImage/"+studentId.toString()+ ".png";
         file.transferTo(new File(sesimg));
-        boolean result=FaceRecognize.ComparePicture(FaceRecognize.GetImage(refImg),FaceRecognize.GetImage(sesimg));
+        Mat refImgMat = FaceRecognize.GetImage(refImg);
+        Mat sesimgMat = FaceRecognize.GetImage(sesimg);
+        boolean result=FaceRecognize.ComparePicture(refImgMat, sesimgMat);
         return Result.success(result);
     }
     @PostMapping("/login")
