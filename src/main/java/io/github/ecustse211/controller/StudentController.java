@@ -3,6 +3,7 @@ package io.github.ecustse211.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.ecustse211.common.Constants;
 import io.github.ecustse211.common.Result;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 
@@ -35,6 +36,9 @@ public class StudentController {
 
     @Resource
     private IStudentService studentService;
+
+    @Value("${file.location}")
+    private String fileUploadPath;
 
     //新增或者更新
     @PostMapping
@@ -70,12 +74,10 @@ public class StudentController {
     public Result compare(@RequestParam Integer studentId, @RequestParam MultipartFile file) throws IOException {
         if(studentId == null || file== null){
             return Result.error(Constants.CODE_400,"参数错误");
-        }//TODO: 图片路径需要修改
-        String sesimg = "src/main/resources/tempImage/"+studentId+".png";
-        String refImg = "src/main/resources/referenceImage/"+studentId+ ".png";
+        }
+        String sesimg = fileUploadPath+"tempImage/"+studentId+".png";
+        String refImg = fileUploadPath+"referenceImage/"+studentId+ ".png";
         file.transferTo(new File(sesimg));
-
-        //ImageUtil.convertBase64ToImage(base64String, sesimg);
         boolean result=FaceRecognize.ComparePicture(FaceRecognize.GetImage(refImg),FaceRecognize.GetImage(sesimg));
         return Result.success(result);
     }

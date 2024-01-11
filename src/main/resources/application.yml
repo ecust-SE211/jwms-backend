@@ -8,6 +8,9 @@ spring:
     username: root
     password: 200342
 
+file:
+  location: D:\DeskTop\FaceReconigitionBackend\jwms-backend\src\main\resources\
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml #扫描所有mybatis的xml文件
 
@@ -17,3 +20,4 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     # 日志打印
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
