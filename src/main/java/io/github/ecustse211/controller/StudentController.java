@@ -3,6 +3,7 @@ package io.github.ecustse211.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.ecustse211.common.Constants;
 import io.github.ecustse211.common.Result;
+import io.github.ecustse211.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
@@ -18,9 +19,9 @@ import io.github.ecustse211.entity.Student;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import io.github.ecust_se211.recognition.recognition_camera.FaceRecognize;
 import org.opencv.core.Mat;
 import org.springframework.web.multipart.MultipartFile;
+import io.github.ecust_se211.recognition.recognition_camera.FaceRecognize;
 
 /**
  * <p>
@@ -75,11 +76,15 @@ public class StudentController {
         if(studentId == null || file== null){
             return Result.error(Constants.CODE_400,"参数错误");
         }
-        String sesimg = fileUploadPath+"src/main/resources/tempImage/"+studentId.toString()+".png";
-        String refImg = fileUploadPath+"src/main/resources/referenceImage/"+studentId.toString()+ ".png";
+        String sesimg = fileUploadPath+"src/main/resources/tempImage/"+studentId+".png";
+        String refImg = fileUploadPath+"src/main/resources/referenceImage/"+studentId+ ".png";
+        String faceXML = fileUploadPath+"src/main/resources/faceConfig/haarcascade_frontalface_alt.xml";
         file.transferTo(new File(sesimg));
-        Mat refImgMat = FaceRecognize.GetImage(refImg);
         Mat sesimgMat = FaceRecognize.GetImage(sesimg);
+        FaceRecognize.StoreImage(sesimgMat,sesimg,true,faceXML);
+        ImageUtil.PreProcessImage(sesimg,refImg,170,170);
+        Mat refImgMat = FaceRecognize.GetImage(refImg);
+
         boolean result=FaceRecognize.ComparePicture(refImgMat, sesimgMat);
         return Result.success(result);
     }

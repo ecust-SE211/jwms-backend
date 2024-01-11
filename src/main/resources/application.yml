@@ -9,7 +9,7 @@ spring:
     password: 200342
 
 file:
-  location: E:\EclipseWorkplace\jwms-backend\
+  location: E:\Java\JavaProjects\jwms-backend\
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml #扫描所有mybatis的xml文件

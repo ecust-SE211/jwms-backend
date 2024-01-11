@@ -1,6 +1,7 @@
 package io.github.ecustse211.utils;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -40,5 +41,33 @@ public class ImageUtil {
             e.printStackTrace();
         }
         return null;
+    }
+    //预处理图片
+    public static void PreProcessImage(String pic1path,String pic2path,int targetWidth,int targetHeight) throws IOException
+    {
+        try {
+            // 读取第一张图片并调整大小
+            BufferedImage img1 = ImageIO.read(new File(pic1path));
+            BufferedImage resizedImg1 = ResizeImage(img1, targetWidth, targetHeight);
+
+            // 读取第二张图片并调整大小
+            BufferedImage img2 = ImageIO.read(new File(pic2path));
+            BufferedImage resizedImg2 = ResizeImage(img2, targetWidth, targetHeight);
+
+            ImageIO.write(resizedImg1, "png", new File(pic1path));
+            ImageIO.write(resizedImg2, "png", new File(pic2path));
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    //将图片缩放到指定大小
+    public static BufferedImage ResizeImage(BufferedImage source, int width, int height) throws IOException {
+        BufferedImage dest=new BufferedImage(width,height,source.getType());
+        Graphics2D g=dest.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.drawImage(source, 0, 0, width, height, null);
+        g.dispose();
+        return dest;
     }
 }
