@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.1</version>
+		<version>3.1.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.github</groupId>
@@ -19,19 +19,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.session</groupId>
-			<artifactId>spring-session-jdbc</artifactId>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>3.0.2</version>
 		</dependency>
 
 		<dependency>
@@ -49,27 +42,55 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		 <!-- 添加版本信息 -->
 		<dependency>
-			<groupId>com.auth0</groupId>
-			<artifactId>java-jwt</artifactId>
-			<version>4.2.2</version> <!-- 添加版本信息 -->
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter-test</artifactId>
+			<version>3.0.2</version>
+			<scope>test</scope>
 		</dependency>
+
+		<!--mybatis-plus-->
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
-			<version>3.5.5</version> <!-- 添加版本信息 -->
+			<version>3.5.3.1</version>
 		</dependency>
+		<!--mybatis-plus代码生成器-->
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-generator</artifactId>
-			<version>3.5.5</version> <!-- 添加版本信息 -->
+			<version>3.5.3.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity -->
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
 		</dependency>
+
+		<!-- JWT -->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.10.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.ecustSE211</groupId>
+			<artifactId>FaceRecognize1.3</artifactId>
+			<scope>system</scope>
+			<version>1.3</version>
+			<systemPath>${project.basedir}\src\main\resources\libs\FaceRecognizer1.3.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>org</groupId>
+			<artifactId>opencv</artifactId>
+			<scope>system</scope>
+			<version>4.7.0</version>
+			<systemPath>${project.basedir}\src\main\resources\libs\opencv-470.jar</systemPath>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

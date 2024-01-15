@@ -6,18 +6,18 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/jwms?serverTimezone=GMT%2b8
     username: root
-    password: root
-    hikari:
-      maximum-pool-size: 10
-      max-lifetime: 1770000
-  session:
-    store-type: jdbc
-    jdbc:
-      initialize-schema: always
+    password: 200342
+
+file:
+  location: E:\Java\JavaProjects\jwms-backend\
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml #扫描所有mybatis的xml文件
 
 mybatis-plus:
   configuration:
+    # 开启驼峰命名规则自动转换
     map-underscore-to-camel-case: true
     # 日志打印
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath:mapper/*.xml
+
