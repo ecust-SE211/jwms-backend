@@ -62,4 +62,13 @@ public class AttendanceController {
         return Result.success(attendanceService.page(new Page<>(pageNum, pageSize),queryWrapper));
     }
 
+    //根据班级id查询Attendance表
+    @GetMapping("/findAttendance")
+    public Result findAttendance(@RequestParam Integer clid) {
+        QueryWrapper<Attendance> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("clid", clid);
+        queryWrapper.orderByDesc("id");
+        return Result.success(attendanceService.page(new Page<>(1, 100),queryWrapper));
+    }
+
 }
