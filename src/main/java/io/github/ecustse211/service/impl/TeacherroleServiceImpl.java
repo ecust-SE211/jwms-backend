@@ -3,12 +3,15 @@ package io.github.ecustse211.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.github.ecustse211.common.Constants;
 import io.github.ecustse211.entity.Classstudent;
+import io.github.ecustse211.entity.Course;
 import io.github.ecustse211.entity.Teacherrole;
 import io.github.ecustse211.exception.ServiceException;
 import io.github.ecustse211.mapper.TeacherroleMapper;
 import io.github.ecustse211.service.ITeacherroleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -29,6 +32,13 @@ public class TeacherroleServiceImpl extends ServiceImpl<TeacherroleMapper, Teach
         remove(queryWrapper);    //从数据库查询用户信息
         return true;
     }
+
+    @Override
+    public List<Course> getCourseListByTeacherId(Integer tid) {
+        List<Course> courseList = this.baseMapper.getCourseListByTeacherId(tid);
+        return courseList;
+    }
+
 
     @Override
     public Teacherrole find(Teacherrole one) {

@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="EcustSe211Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="ecust-se211" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.github.ecustse211.EcustSe211Application" />
+    <option name="VM_PARAMETERS" value="-Djava.library.path=$MODULE_DIR$\src\main\resources\dlls " />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
