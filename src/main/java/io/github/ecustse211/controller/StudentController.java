@@ -89,7 +89,7 @@ public class StudentController {
         return Result.success(result);
     }
 
-    @GetMapping(" /search")
+    @GetMapping("/search")
     public Result search(@RequestParam Integer pageNum,
                          @RequestParam Integer pageSize,
                          @RequestParam String query) {
