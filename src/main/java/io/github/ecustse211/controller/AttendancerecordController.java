@@ -52,4 +52,11 @@ public class AttendancerecordController {
         return Result.success(attendancerecordService.page(new Page<>(pageNum, pageSize),queryWrapper));
     }
 
+    @GetMapping("/student")
+    public Result findStudents(@RequestParam Integer fid) {
+        QueryWrapper<Attendancerecord> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("fid", fid);
+        queryWrapper.orderByDesc("id");
+        return Result.success(attendancerecordService.page(new Page<>(1, 100),queryWrapper));
+    }
 }
