@@ -88,6 +88,19 @@ public class StudentController {
         boolean result=FaceRecognize.ComparePicture(refImgMat, sesimgMat);
         return Result.success(result);
     }
+
+    @GetMapping(" /search")
+    public Result search(@RequestParam Integer pageNum,
+                         @RequestParam Integer pageSize,
+                         @RequestParam String query) {
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        if (!query.isEmpty()) {
+            queryWrapper.like("name", query).or().like("id", query);
+        }
+        queryWrapper.orderByAsc("id");
+        return Result.success(studentService.page(new Page<>(pageNum, pageSize), queryWrapper));
+    }
+
     @PostMapping("/login")
     public Result login(@RequestBody Student student){
         String id = student.getId().toString();
