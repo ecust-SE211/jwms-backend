@@ -1,7 +1,10 @@
 package io.github.ecustse211.service;
 
+import io.github.ecustse211.entity.Course;
 import io.github.ecustse211.entity.Teacherrole;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,6 +17,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ITeacherroleService extends IService<Teacherrole> {
 
     Boolean delete(Teacherrole one);
+
+    List<Course> getCourseListByTeacherId(Integer tid);
 
     Teacherrole find(Teacherrole one);
 }

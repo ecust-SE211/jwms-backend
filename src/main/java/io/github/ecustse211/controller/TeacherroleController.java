@@ -3,6 +3,7 @@ package io.github.ecustse211.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.ecustse211.common.Result;
 import io.github.ecustse211.entity.Classstudent;
+import io.github.ecustse211.entity.Course;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import java.util.List;
@@ -67,6 +68,12 @@ public class TeacherroleController {
         QueryWrapper<Teacherrole> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("id");
         return Result.success(teacherroleService.page(new Page<>(pageNum, pageSize),queryWrapper));
+    }
+
+    @GetMapping("/course")
+    public Result getCourseByTid(@RequestParam Integer tid){
+        List<Course> courseList = teacherroleService.getCourseListByTeacherId(tid);
+        return Result.success(courseList);
     }
 
 }
