@@ -7,4 +7,11 @@
           and class.cid = course.id
           and teacherrole.tid = #{tid}
     </select>
+
+    <select id="getStudentIdByTeacherId">
+        SELECT distinct(classstudent.sid) FROM classstudent,teacherrole
+        where teacherrole.clid = classstudent.clid
+          and teacherrole.tid = #{tid}
+    </select>
+
 </mapper>

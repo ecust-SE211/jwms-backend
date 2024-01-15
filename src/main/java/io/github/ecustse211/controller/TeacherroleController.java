@@ -76,4 +76,11 @@ public class TeacherroleController {
         return Result.success(courseList);
     }
 
+    //根据教师id查询学生id
+    @GetMapping("/student")
+    public Result getStudentIdByTid(@RequestParam Integer tid){
+        List<Integer> studentIdList = teacherroleService.getStudentIdByTeacherId(tid);
+        return Result.success(studentIdList);
+    }
+
 }
