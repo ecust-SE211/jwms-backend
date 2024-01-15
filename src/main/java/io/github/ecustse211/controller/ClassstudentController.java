@@ -3,6 +3,7 @@ package io.github.ecustse211.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.ecustse211.common.Result;
 import io.github.ecustse211.entity.Classstudent;
+import io.github.ecustse211.entity.Student;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -11,6 +12,8 @@ import io.github.ecustse211.service.IClassstudentService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -64,4 +67,10 @@ public class ClassstudentController {
         return Result.success(classstudentService.page(new Page<>(pageNum, pageSize),queryWrapper));
     }
 
+    //根据班级id查找学生
+    @GetMapping("/student")
+    public Result getStudentByClassId(@RequestParam Integer clid){
+        List<Student> studentIdList = classstudentService.getStudentByClassId(clid);
+        return Result.success(studentIdList);
+    }
 }
