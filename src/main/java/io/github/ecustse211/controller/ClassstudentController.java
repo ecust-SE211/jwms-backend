@@ -73,4 +73,13 @@ public class ClassstudentController {
         List<Student> studentIdList = classstudentService.getStudentByClassId(clid);
         return Result.success(studentIdList);
     }
+
+    //根据学生id查找教学班
+    @GetMapping("/class")
+    public Result getClassByStudentId(@RequestParam Integer sid){
+        QueryWrapper<Classstudent> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("sid", sid);
+        queryWrapper.orderByDesc("id");
+        return Result.success(classstudentService.page(new Page<>(1, 100),queryWrapper));
+    }
 }
