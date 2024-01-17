@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.github.ecustse211.mapper.TeacherroleMapper">
     <select id="getCourseListByTeacherId">
-        select distinct(Course.name) from course, teacherrole,class
+        select Course.id,Course.name from course, teacherrole,class
         where teacherrole.clid = class.id
           and class.cid = course.id
           and teacherrole.tid = #{tid}
