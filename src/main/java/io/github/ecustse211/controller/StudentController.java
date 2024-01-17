@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.ecustse211.common.Constants;
 import io.github.ecustse211.common.Result;
 import io.github.ecustse211.utils.ImageUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.opencv.core.Mat;
 import org.springframework.web.multipart.MultipartFile;
 import io.github.ecust_se211.recognition.recognition_camera.FaceRecognize;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 /**
  * <p>
@@ -72,21 +74,29 @@ public class StudentController {
         return Result.success(studentService.page(new Page<>(pageNum, pageSize),queryWrapper));
     }
     @PostMapping("/compare")
-    public Result compare(@RequestParam Integer studentId, @RequestParam MultipartFile file) throws IOException {
-        if(studentId == null || file== null){
-            return Result.error(Constants.CODE_400,"参数错误");
+    public Result compare(@RequestParam("studentId") Integer studentId, HttpServletRequest request) throws IOException {
+        if (studentId == null) {
+            return Result.error(Constants.CODE_400, "参数错误");
         }
+
+        // 从MultipartHttpServletRequest中获取文件
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = (MultipartFile) multipartRequest.getFile("file");
+
+        if (file == null) {
+            return Result.error(Constants.CODE_400, "未接收到图片文件");
+        }
+        System.out.println(file.getOriginalFilename());
         String sesimg = fileUploadPath+"src/main/resources/tempImage/"+studentId+".png";
         String refImg = fileUploadPath+"src/main/resources/referenceImage/"+studentId+ ".png";
         String faceXML = fileUploadPath+"src/main/resources/faceConfig/haarcascade_frontalface_alt.xml";
         file.transferTo(new File(sesimg));
         Mat sesimgMat = FaceRecognize.GetImage(sesimg);
-        FaceRecognize.StoreImage(sesimgMat,sesimg,true,faceXML);
+        FaceRecognize.StoreImage(sesimgMat,sesimg,false,faceXML);
         ImageUtil.PreProcessImage(sesimg,refImg,170,170);
         Mat refImgMat = FaceRecognize.GetImage(refImg);
-
         boolean result=FaceRecognize.ComparePicture(refImgMat, sesimgMat);
-        return Result.success(result);
+       return Result.success(result);
     }
 
     @GetMapping(" /search")

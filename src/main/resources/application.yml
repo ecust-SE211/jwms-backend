@@ -6,10 +6,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/jwms?serverTimezone=GMT%2b8
     username: root
-    password: root
+    password: rjj020910
 
 file:
-  location: E:\Java\JavaProjects\jwms-backend\
+  location: E:\ECUST\SWDW\test\JWMS\jwms-backend\
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml #扫描所有mybatis的xml文件
