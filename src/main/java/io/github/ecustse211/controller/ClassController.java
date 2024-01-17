@@ -59,4 +59,12 @@ public class ClassController {
         return Result.success(classService.page(new Page<>(pageNum, pageSize),queryWrapper));
     }
 
+    @GetMapping("/getClassByCid")
+    public Result findClass(@RequestParam Integer cid) {
+        QueryWrapper<Class> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("cid", cid);
+        queryWrapper.orderByDesc("id");
+        return Result.success(classService.page(new Page<>(1, 100),queryWrapper));
+    }
+
 }
