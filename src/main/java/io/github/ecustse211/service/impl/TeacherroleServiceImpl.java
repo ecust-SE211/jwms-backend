@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.github.ecustse211.common.Constants;
 import io.github.ecustse211.entity.Classstudent;
 import io.github.ecustse211.entity.Course;
+import io.github.ecustse211.entity.Student;
 import io.github.ecustse211.entity.Teacherrole;
 import io.github.ecustse211.exception.ServiceException;
 import io.github.ecustse211.mapper.TeacherroleMapper;
@@ -37,6 +38,12 @@ public class TeacherroleServiceImpl extends ServiceImpl<TeacherroleMapper, Teach
     public List<Course> getCourseListByTeacherId(Integer tid) {
         List<Course> courseList = this.baseMapper.getCourseListByTeacherId(tid);
         return courseList;
+    }
+
+    @Override
+    public List<Integer> getStudentIdByTeacherId(Integer tid) {
+        List<Integer> studentIdList = this.baseMapper.getStudentIdByTeacherId(tid);
+        return studentIdList;
     }
 
 

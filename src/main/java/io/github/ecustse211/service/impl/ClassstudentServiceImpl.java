@@ -3,11 +3,14 @@ package io.github.ecustse211.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.github.ecustse211.common.Constants;
 import io.github.ecustse211.entity.Classstudent;
+import io.github.ecustse211.entity.Student;
 import io.github.ecustse211.exception.ServiceException;
 import io.github.ecustse211.mapper.ClassstudentMapper;
 import io.github.ecustse211.service.IClassstudentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -41,5 +44,11 @@ public class ClassstudentServiceImpl extends ServiceImpl<ClassstudentMapper, Cla
             queryWrapper.eq("clid", one.getClid());
             remove(queryWrapper);    //从数据库查询用户信息
             return true;
+    }
+
+    @Override
+    public List<Student> getStudentByClassId(Integer clid) {
+        List<Student> studentIdList = this.baseMapper.getStudentByClassId(clid);
+        return studentIdList;
     }
 }
