@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.github.ecustse211.mapper.TeacherroleMapper">
+<<<<<<< Updated upstream
+=======
+    <select id="getCourseListByTeacherId">
+        select distinct Course.id as id,Course.name as name from course, teacherrole,class
+        where teacherrole.clid = class.id
+          and class.cid = course.id
+          and teacherrole.tid = #{tid}
+    </select>
+
+    <select id="getStudentIdByTeacherId">
+        SELECT distinct(classstudent.sid) FROM classstudent,teacherrole
+        where teacherrole.clid = classstudent.clid
+          and teacherrole.tid = #{tid}
+    </select>
+>>>>>>> Stashed changes
 
 </mapper>

@@ -16,6 +16,7 @@ public class Result {
     private String msg;
     private Object data;
 
+
     public static Result success() {    //默认成功
         return new Result(Constants.CODE_200, "", null);
     }
@@ -31,4 +32,5 @@ public class Result {
     public static Result error() {  //默认错误
         return new Result(Constants.CODE_500, "系统错误", null);
     }
+
 }

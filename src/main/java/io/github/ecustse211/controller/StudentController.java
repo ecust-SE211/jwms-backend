@@ -4,6 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.ecustse211.common.Constants;
 import io.github.ecustse211.common.Result;
 import io.github.ecustse211.utils.ImageUtil;
+<<<<<<< Updated upstream
+=======
+import jakarta.servlet.http.HttpServletRequest;
+import org.apache.tomcat.util.json.JSONParser;
+>>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
@@ -22,7 +27,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.opencv.core.Mat;
 import org.springframework.web.multipart.MultipartFile;
 import io.github.ecust_se211.recognition.recognition_camera.FaceRecognize;
+<<<<<<< Updated upstream
 
+=======
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+>>>>>>> Stashed changes
 /**
  * <p>
  *  前端控制器
@@ -88,6 +99,56 @@ public class StudentController {
         boolean result=FaceRecognize.ComparePicture(refImgMat, sesimgMat);
         return Result.success(result);
     }
+<<<<<<< Updated upstream
+=======
+    @PostMapping("/compareCircle")
+    public Result compareCircle(@RequestParam("studentIdList") String studentIdListString,HttpServletRequest request) throws IOException {
+        JSONArray jsonArrayFromJson = JSON.parseArray(studentIdListString);
+        // 将JSONArray转换回整型数组
+        int[] studentIdList = new int[jsonArrayFromJson.size()];
+        for (int i = 0; i < jsonArrayFromJson.size(); i++) {
+            studentIdList[i] = jsonArrayFromJson.getInteger(i);
+        }
+        // 从MultipartHttpServletRequest中获取文件
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = (MultipartFile) multipartRequest.getFile("file");
+
+        if (file == null) {
+            return Result.error(Constants.CODE_400, "未接收到图片文件");
+        }
+        System.out.println(file.getOriginalFilename());
+        String sesimg = fileUploadPath+"src/main/resources/tempImage/temp.png";
+        String faceXML = fileUploadPath+"src/main/resources/faceConfig/haarcascade_frontalface_alt.xml";
+        file.transferTo(new File(sesimg));
+        Mat sesimgMat = FaceRecognize.GetImage(sesimg);
+        FaceRecognize.StoreImage(sesimgMat,sesimg,false,faceXML);
+        for(int i:studentIdList)
+        {
+            String studentId = String.valueOf(i);
+            String refImg = fileUploadPath+"src/main/resources/referenceImage/"+studentId+ ".png";
+            ImageUtil.PreProcessImage(sesimg,refImg,170,170);
+            Mat refImgMat = FaceRecognize.GetImage(refImg);
+            boolean result=FaceRecognize.ComparePicture(refImgMat, sesimgMat);
+            if(result==true)
+            {
+                return Result.success(i);
+            }
+        }
+        return Result.success(false);
+    }
+    @GetMapping(" /search")
+    public Result search(@RequestParam Integer pageNum,
+                         @RequestParam Integer pageSize,
+                         @RequestParam String query) {
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        if (!query.isEmpty()) {
+            queryWrapper.like("name", query).or().like("id", query);
+        }
+        queryWrapper.orderByAsc("id");
+        return Result.success(studentService.page(new Page<>(pageNum, pageSize), queryWrapper));
+    }
+
+>>>>>>> Stashed changes
     @PostMapping("/login")
     public Result login(@RequestBody Student student){
         String id = student.getId().toString();
